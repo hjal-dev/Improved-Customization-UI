@@ -1,0 +1,102 @@
+{
+  "ch": {
+    "ClothingItem/All": "所有",
+    "ClothingItem/CanBuy": "可购买",
+    "ClothingItem/LockedForCurrentGameVersion": "当前版本游戏不可用"
+  },
+  "cz": {
+    "ClothingItem/All": "Všechno",
+    "ClothingItem/CanBuy": "K zakoupení",
+    "ClothingItem/LockedForCurrentGameVersion": "Nedostupné pro aktuální edici hry"
+  },
+  "en": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "es-mx": {
+    "ClothingItem/All": "Todo",
+    "ClothingItem/CanBuy": "A la venta",
+    "ClothingItem/LockedForCurrentGameVersion": "No disponible para la edición actual del juego"
+  },
+  "es": {
+    "ClothingItem/All": "Todo",
+    "ClothingItem/CanBuy": "A la venta",
+    "ClothingItem/LockedForCurrentGameVersion": "No disponible para la edición actual del juego"
+  },
+  "fr": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "ge": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "hu": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "in": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "it": {
+    "ClothingItem/All": "Tutti",
+    "ClothingItem/CanBuy": "Acquistabili",
+    "ClothingItem/LockedForCurrentGameVersion": "Non disponibile per l'edizione attuale del gioco"
+  },
+  "jp": {
+    "ClothingItem/All": "全て",
+    "ClothingItem/CanBuy": "購入可能",
+    "ClothingItem/LockedForCurrentGameVersion": "現在のゲームのエディションでは使用できません"
+  },
+  "kr": {
+    "ClothingItem/All": "전체",
+    "ClothingItem/CanBuy": "구매 가능",
+    "ClothingItem/LockedForCurrentGameVersion": "현재 게임 버전에서는 이용하실 수 없습니다"
+  },
+  "pl": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "po": {
+    "ClothingItem/All": "Todos",
+    "ClothingItem/CanBuy": "Disponível para compra",
+    "ClothingItem/LockedForCurrentGameVersion": "Indisponível para a edição atual do jogo"
+  },
+  "ro": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "ru": {
+    "ClothingItem/All": "Все",
+    "ClothingItem/CanBuy": "Доступно",
+    "ClothingItem/LockedForCurrentGameVersion": "Недоступно для данной версии игры"
+  },
+  "sk": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "th": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "tu": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  },
+  "vi": {
+    "ClothingItem/All": "All",
+    "ClothingItem/CanBuy": "Purchasable",
+    "ClothingItem/LockedForCurrentGameVersion": "Unavailable for current game edition"
+  }
+}
