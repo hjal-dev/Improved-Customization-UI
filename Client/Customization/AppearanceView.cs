@@ -178,6 +178,8 @@ namespace ImprovedCustomizationUI.Customization
             }
             CreateGearToggle(faceIcon);
             CreateLightsToggle(faceIcon);
+            CreateWholeBodyToggle(faceIcon);
+            CreatePhotoToggle(faceIcon);
             _shownHead = head._selectedHeadIndex;
             head.StateCanvasGroup.alpha = 1f;
             head.StateCanvasGroup.interactable = true;
@@ -876,6 +878,118 @@ namespace ImprovedCustomizationUI.Customization
             }
         }
 
+        private static bool _wholeBody;
+        private Image _wholeBodyImage;
+        private RawImage _previewImage;
+        private Material _previewMask;
+        private Vector2[] _viewportSizes;
+        private PhotoMode _photo;
+        private Image _photoImage;
+
+        private void CreateWholeBodyToggle(RectTransform faceIcon)
+        {
+            Sprite sprite = UiHelpers.LoadSprite("icon_full_body_view.png");
+            if (faceIcon == null || sprite == null)
+            {
+                return;
+            }
+
+            PlayerProfilePreview preview = Head._preview;
+            _previewImage = preview._transform.GetComponent<RawImage>();
+            _previewMask = _previewImage != null ? _previewImage.material : null;
+            _viewportSizes = new Vector2[preview._viewPorts.Count];
+            for (int i = 0; i < preview._viewPorts.Count; i++)
+            {
+                RectTransform port = preview._viewPorts[i].ViewportPosition;
+                _viewportSizes[i] = port != null ? port.sizeDelta : Vector2.zero;
+            }
+
+            _wholeBodyImage = CopyFaceIcon(faceIcon, 3, "WholeBodyToggle", sprite, "Full body view", WholeBodyClicked);
+            ApplyWholeBody();
+        }
+
+        private void WholeBodyClicked()
+        {
+            _wholeBody = !_wholeBody;
+            ApplyWholeBody();
+        }
+
+        private void ApplyWholeBody()
+        {
+            PlayerProfilePreview preview = Head._preview;
+            if (_previewImage != null)
+            {
+                _previewImage.material = _wholeBody ? null : _previewMask;
+            }
+
+            RectTransform parent = preview._transform.parent as RectTransform;
+            for (int i = 0; i < preview._viewPorts.Count; i++)
+            {
+                RectTransform port = preview._viewPorts[i].ViewportPosition;
+                if (port == null)
+                {
+                    continue;
+                }
+                Vector2 original = _viewportSizes[i];
+                if (!_wholeBody || parent == null)
+                {
+                    port.sizeDelta = original;
+                    continue;
+                }
+                float fullHeight = parent.rect.height;
+                float shownHeight = fullHeight + original.y;
+                float width = shownHeight > 1f ? original.x * fullHeight / shownHeight : original.x;
+                port.sizeDelta = new Vector2(width, 0f);
+            }
+
+            if (_wholeBodyImage != null)
+            {
+                _wholeBodyImage.color = _wholeBody ? _iconColour : Dimmed(_iconColour);
+            }
+            if (_camera != null)
+            {
+                _camera.SetWholeBody(_wholeBody);
+            }
+        }
+
+        private void CreatePhotoToggle(RectTransform faceIcon)
+        {
+            Sprite sprite = UiHelpers.LoadSprite("icon_photo_mode.png");
+            if (faceIcon == null || sprite == null)
+            {
+                return;
+            }
+
+            _photoImage = CopyFaceIcon(faceIcon, 4, "PhotoModeToggle", sprite, "Photo mode", PhotoClicked);
+            GameObject grid = FindFaceGrid(Head);
+            RectTransform spot = grid != null ? (RectTransform)grid.transform : (RectTransform)_photoImage.transform;
+            _photo = new PhotoMode(Head._preview, _profile.Info.Nickname, spot, _screen._backButton);
+            _photoImage.color = Dimmed(_iconColour);
+        }
+
+        private void PhotoClicked()
+        {
+            if (_photo == null)
+            {
+                return;
+            }
+            _photo.Toggle();
+            bool open = _photo.Open;
+            GameObject faces = FindFaceGrid(Head);
+            if (faces != null)
+            {
+                faces.SetActive(!open);
+            }
+            foreach (GameObject row in new GameObject[] { _upperRow, _lowerRow, _voiceRow != null ? _voiceRow.gameObject : null })
+            {
+                if (row != null)
+                {
+                    row.SetActive(!open);
+                }
+            }
+            _photoImage.color = _photo.Open ? _iconColour : Dimmed(_iconColour);
+        }
+
         private RectTransform FindFaceIcon(HeadSelectionState head)
         {
             GameObject grid = FindFaceGrid(head);
@@ -1140,6 +1254,10 @@ namespace ImprovedCustomizationUI.Customization
             if (_lighting != null)
             {
                 _lighting.Dispose();
+            }
+            if (_photo != null)
+            {
+                _photo.Dispose();
             }
             if (_screen != null)
             {

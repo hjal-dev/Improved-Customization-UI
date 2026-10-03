@@ -10,6 +10,8 @@ namespace ImprovedCustomizationUI.Customization.Preview
     {
         public const float LEGS_DROP = 0.5f;
 
+        public static readonly Vector3 WHOLE_BODY_POSITION = new Vector3(0f, 0.92f, -6.3f);
+
         private const float ZOOM_STEP = 0.2f;
         private const float MIN_DISTANCE = 0.5f;
         private const float MAX_ZOOM_OUT = 1f;
@@ -84,6 +86,21 @@ namespace ImprovedCustomizationUI.Customization.Preview
             _view = view;
             _drop = drop;
             if (!_freeLook)
+            {
+                Move();
+            }
+        }
+
+        public bool WholeBody { get; private set; }
+
+        public void SetWholeBody(bool on)
+        {
+            WholeBody = on;
+            if (_freeLook)
+            {
+                EndFreeLook();
+            }
+            else
             {
                 Move();
             }
@@ -350,15 +367,24 @@ namespace ImprovedCustomizationUI.Customization.Preview
                 LogCameraSpots();
 
                 PlayerProfilePreview.ECameraViewType spot;
-                if (!FindSpot(_view, out spot))
+                if (!FindSpot(WholeBody ? PlayerProfilePreview.ECameraViewType.FullBody : _view, out spot))
                 {
                     return;
                 }
 
                 Transform target = _preview.GetPositionNode(spot).CameraPosition;
                 Vector3 home = target.localPosition;
+                Quaternion homeRotation = target.localRotation;
                 Task glide;
-                target.localPosition = home + new Vector3(0f, -drop, 0f);
+                if (WholeBody)
+                {
+                    target.localPosition = WHOLE_BODY_POSITION;
+                    target.localRotation = Quaternion.identity;
+                }
+                else
+                {
+                    target.localPosition = home + new Vector3(0f, -drop, 0f);
+                }
                 try
                 {
                     glide = _preview.ChangeCameraPosition(spot, 0.4f);
@@ -366,6 +392,7 @@ namespace ImprovedCustomizationUI.Customization.Preview
                 finally
                 {
                     target.localPosition = home;
+                    target.localRotation = homeRotation;
                 }
                 await glide;
             }
