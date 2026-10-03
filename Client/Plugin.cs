@@ -80,7 +80,7 @@ namespace ImprovedCustomizationUI
                 "Off = the game's preview lights cast no shadows (a flatter, brighter look). On = as the game has them.", 10));
 
             PhotoFolder = Config.Bind(PHOTO_SECTION, "Photo folder", "", Describe(
-                "Where photo mode saves its PNGs. Empty = SPT\\user\\mods\\ImprovedCustomizationUI\\Photos.", 10));
+                "Where photo mode saves its PNGs. Empty = SPT_Runtime\\user\\mods\\ImprovedCustomizationUI\\Photos.", 10));
 
             PreviewLights.SettingChanged += OnLightingChanged;
             ExtraLightBrightness.SettingChanged += OnLightingChanged;

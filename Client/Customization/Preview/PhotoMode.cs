@@ -311,7 +311,7 @@ namespace ImprovedCustomizationUI.Customization.Preview
             }
 
             string root = BepInEx.Paths.GameRootPath;
-            foreach (string server in new[] { "SPT", "SPT_Runtime" })
+            foreach (string server in new[] { "SPT_Runtime" })
             {
                 string mod = Path.Combine(Path.Combine(Path.Combine(Path.Combine(root, server), "user"), "mods"), "ImprovedCustomizationUI");
                 if (Directory.Exists(mod))
