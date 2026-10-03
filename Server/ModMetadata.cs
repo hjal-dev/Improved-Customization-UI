@@ -12,7 +12,7 @@ public record ModMetadata : IModMetadata
     public string Name { get; init; } = "Hj's Improved Customization UI";
     public string Author { get; init; } = "hj";
     public List<string> Contributors { get; init; } = null;
-    public Version Version { get; init; } = new Version("1.0.0");
+    public Version Version { get; init; } = new Version("1.1.0");
     public Range SptVersion { get; init; } = new Range("~4.1.0");
     public bool HasPrepatcher { get; init; } = false;
     public List<string> Incompatibilities { get; init; } = null;

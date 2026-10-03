@@ -7,7 +7,7 @@ using ImprovedCustomizationUI.Ragman;
 
 namespace ImprovedCustomizationUI
 {
-    [BepInPlugin("com.hj.improvedcustomizationui", "Hj's Improved Customization UI", "1.0.0")]
+    [BepInPlugin("com.hj.improvedcustomizationui", "Hj's Improved Customization UI", "1.1.0")]
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource Log;
@@ -15,6 +15,7 @@ namespace ImprovedCustomizationUI
         private const string TAB_SECTION = "1. Customization tab";
         private const string RAGMAN_SECTION = "2. Ragman clothing";
         private const string LIGHTING_SECTION = "3. Preview lighting";
+        private const string PHOTO_SECTION = "4. Photo mode";
 
         public static ConfigEntry<bool> EnableCustomizationTab;
         public static ConfigEntry<bool> PreviewWeaponSounds;
@@ -30,6 +31,7 @@ namespace ImprovedCustomizationUI
         public static ConfigEntry<float> GameLightsBrightness;
         public static ConfigEntry<float> RimLightStrength;
         public static ConfigEntry<bool> GameLightShadows;
+        public static ConfigEntry<string> PhotoFolder;
 
         public static event Action LightingChanged;
 
@@ -76,6 +78,9 @@ namespace ImprovedCustomizationUI
 
             GameLightShadows = Config.Bind(LIGHTING_SECTION, "Game light shadows", true, Describe(
                 "Off = the game's preview lights cast no shadows (a flatter, brighter look). On = as the game has them.", 10));
+
+            PhotoFolder = Config.Bind(PHOTO_SECTION, "Photo folder", "", Describe(
+                "Where photo mode saves its PNGs. Empty = SPT\\user\\mods\\ImprovedCustomizationUI\\Photos.", 10));
 
             PreviewLights.SettingChanged += OnLightingChanged;
             ExtraLightBrightness.SettingChanged += OnLightingChanged;
