@@ -171,6 +171,22 @@ namespace ImprovedCustomizationUI.Customization.Preview
             CameraClearFlags oldClear = camera.clearFlags;
             Color oldBackground = camera.backgroundColor;
             Matrix4x4 oldProjection = camera.projectionMatrix;
+            System.Collections.Generic.List<Renderer> hidden = new System.Collections.Generic.List<Renderer>();
+            System.Collections.Generic.Dictionary<Renderer, UnityEngine.Rendering.ShadowCastingMode> casters = new System.Collections.Generic.Dictionary<Renderer, UnityEngine.Rendering.ShadowCastingMode>();
+            foreach (Renderer renderer in _preview._cameraContainer.root.GetComponentsInChildren<Renderer>(false))
+            {
+                Transform parent = renderer.transform.parent;
+                if (parent != null && parent.name.Contains("Shadow") && renderer.enabled)
+                {
+                    renderer.enabled = false;
+                    hidden.Add(renderer);
+                }
+                else if (renderer.shadowCastingMode != UnityEngine.Rendering.ShadowCastingMode.Off)
+                {
+                    casters[renderer] = renderer.shadowCastingMode;
+                    renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                }
+            }
             RenderTexture target = oldTarget != null
                 ? new RenderTexture(size.x, size.y, oldTarget.depth, oldTarget.format)
                 : new RenderTexture(size.x, size.y, 24, RenderTextureFormat.ARGB32);
@@ -213,6 +229,20 @@ namespace ImprovedCustomizationUI.Customization.Preview
                 camera.targetTexture = oldTarget;
                 camera.ResetAspect();
                 camera.projectionMatrix = oldProjection;
+                foreach (Renderer renderer in hidden)
+                {
+                    if (renderer != null)
+                    {
+                        renderer.enabled = true;
+                    }
+                }
+                foreach (System.Collections.Generic.KeyValuePair<Renderer, UnityEngine.Rendering.ShadowCastingMode> pair in casters)
+                {
+                    if (pair.Key != null)
+                    {
+                        pair.Key.shadowCastingMode = pair.Value;
+                    }
+                }
                 camera.clearFlags = oldClear;
                 camera.backgroundColor = oldBackground;
                 cameraTransform.localPosition = position;
@@ -221,6 +251,17 @@ namespace ImprovedCustomizationUI.Customization.Preview
                 target.Release();
                 UnityEngine.Object.Destroy(target);
             }
+
+            Color32[] pixels = result.GetPixels32();
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                if (pixels[i].a < 140)
+                {
+                    pixels[i] = new Color32(0, 0, 0, 0);
+                }
+            }
+            result.SetPixels32(pixels);
+            result.Apply();
 
             string folder = PhotoFolder();
             Directory.CreateDirectory(folder);
