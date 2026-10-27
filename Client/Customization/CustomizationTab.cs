@@ -15,7 +15,7 @@ namespace ImprovedCustomizationUI.Customization
 {
     public class CustomizationTab : MonoBehaviour, ITabController
     {
-        public const EInventoryTab TAB_ID = (EInventoryTab)8;
+        public const EInventoryTab TAB_ID = (EInventoryTab)7770;
 
         private const string TAB_NAME = "ImprovedCustomizationUICustomizationTab";
 
@@ -61,6 +61,13 @@ namespace ImprovedCustomizationUI.Customization
 
             bool available = !controller.InRaid && !controller.IsInventoryBlocked && _profile.Side != EPlayerSide.Savage;
             _tab.SetInteractable(available);
+            CanvasGroup fade = _tab.GetComponent<CanvasGroup>();
+            if (fade == null)
+            {
+                fade = _tab.gameObject.AddComponent<CanvasGroup>();
+            }
+            fade.alpha = available ? 1f : 0.3f;
+            fade.blocksRaycasts = available;
             _page.gameObject.SetActive(false);
 
             if (!available && controller.LastSelectedTab == TAB_ID)
