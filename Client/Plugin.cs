@@ -7,7 +7,7 @@ using ImprovedCustomizationUI.Ragman;
 
 namespace ImprovedCustomizationUI
 {
-    [BepInPlugin("com.hj.improvedcustomizationui", "Hj's Improved Customization UI", "1.1.1")]
+    [BepInPlugin("com.hj.improvedcustomizationui", "Hj's Improved Customization UI", "1.1.2")]
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource Log;
